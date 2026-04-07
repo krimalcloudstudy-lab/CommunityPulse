@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>CommunityPulse | Real-time Crisis Response Network</title>
+
+    <!-- Google Fonts + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Leaflet CSS + Plugins -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="hero">
+    <div class="logo">
+        <h1><i class="fas fa-hand-holding-heart"></i> CommunityPulse</h1>
+        <p>real-time crisis response · hyperlocal needs & volunteers</p>
+    </div>
+    <div class="stats-badge" id="liveStats">
+        <i class="fas fa-map-marker-alt"></i> <span id="needCount">0</span> active needs · 
+        <i class="fas fa-users"></i> <span id="volCount">0</span> volunteers
+    </div>
+</div>
+
+<div class="ai-summary" id="aiSummary">
+    <i class="fas fa-robot"></i> 🤖 AI Ready...
+</div>
+
+<!-- Notification Banner -->
+<div id="volunteerOpportunities" class="opportunity-banner"></div>
+
+<div class="dashboard">
+    <!-- Add Need Card -->
+    <div class="card form-card">
+        <h3><i class="fas fa-exclamation-triangle"></i> Report a Need</h3>
+        <input id="type" placeholder="Type of need (food, water, medical, shelter, etc)" autocomplete="off">
+        <input id="requesterName" placeholder="Your name" autocomplete="off">
+        <input id="requesterPhone" placeholder="Your phone number (for volunteers to contact you)" autocomplete="off">
+        <input id="city" placeholder="City" autocomplete="off">
+        <input id="state" placeholder="State" autocomplete="off">
+        <select id="urgency" class="urgency-select">
+            <option value="high">🚨 High urgency (critical)</option>
+            <option value="medium">⚠️ Medium urgency</option>
+            <option value="low">✅ Low urgency</option>
+        </select>
+        <button onclick="addNeed(event)"><i class="fas fa-plus-circle"></i> Publish Need</button>
+        <small style="display:block; margin-top: 12px; color:#4a6a85;">
+            <i class="fas fa-bell"></i> Volunteers will be NOTIFIED immediately!
+        </small>
+    </div>
+
+    <!-- Map Card -->
+    <div class="card map-card">
+        <div id="map"></div>
+        <div class="map-instruction">
+            <small><i class="fas fa-hand-point-up"></i> Click on any marker to volunteer! 🔔 New needs trigger sound & browser notifications</small>
+        </div>
+    </div>
+
+    <!-- Volunteer Card -->
+    <div class="card volunteer-card">
+        <h3><i class="fas fa-user-plus"></i> Join as Volunteer</h3>
+        <input id="vname" placeholder="Full name">
+        <input id="vskill" placeholder="Skills (food distribution, medical, transport, etc)">
+        <input id="vphone" placeholder="Phone number (for contact)">
+        <input id="vlocation" placeholder="Your city/location (to get local alerts)">
+        <button onclick="addVolunteer(event)"><i class="fas fa-bell"></i> Register & Get Notifications</button>
+
+        <div class="volunteer-header">
+            <h4><i class="fas fa-users"></i> Available Volunteers</h4>
+            <small>Click any volunteer to contact them</small>
+        </div>
+        <div class="volunteer-list" id="volunteerListContainer">
+            <div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> loading heroes...</div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    🌟 <strong>How Notifications Work:</strong> Volunteers get browser notifications + sound alerts when new needs are posted! 
+    Click on any marker → "I Can Help" → Enter name → You're assigned! <i class="fas fa-globe-asia"></i>
+</footer>
+
+<!-- Leaflet JS & Plugins -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+<!-- Main App JS -->
+<script type="module" src="app.js"></script>
+
+</body>
+</html>
